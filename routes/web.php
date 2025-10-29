@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Central\TenantController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,7 +30,14 @@ foreach (config('tenancy.central_domains') as $domain) {
             Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
             Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
             Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+            // tenants
+            Route::get('/tenants', [TenantController::class, 'index'])->name('tenants.index');
+            Route::get('/tenants/create', [TenantController::class, 'create'])->name('tenants.create');
+            Route::post('/tenants/store', [TenantController::class, 'store'])->name('tenants.store');
+
         });
+
 
         require __DIR__ . '/auth.php';
     });
