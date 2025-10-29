@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Central\TenantController;
+use App\Http\Controllers\Central\TenantStatusController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,7 @@ foreach (config('tenancy.central_domains') as $domain) {
             Route::get('/tenants', [TenantController::class, 'index'])->name('tenants.index');
             Route::get('/tenants/create', [TenantController::class, 'create'])->name('tenants.create');
             Route::post('/tenants/store', [TenantController::class, 'store'])->name('tenants.store');
+            Route::post('/tenants/{tenant}/toggle-status', [TenantStatusController::class, 'index'])->name('tenant.status');
 
         });
 

@@ -39,7 +39,14 @@
                                 <td>{{ $tenant->id }}</td>
                                 <td>{{ $tenant->name }}</td>
                                 <td>{{ $tenant->db_name }}</td>
-                                <td>{{ $tenant->status }}</td>
+                                <td class="border border-gray-300 px-4 py-2">
+                                    <form action="{{ route('tenant.status', $tenant->id) }}" method="POST" onsubmit="return confirm('Do you want to {{ $tenant->status === 'active' ? 'disable' : 'activate' }} this tenant?');">
+                                        @csrf
+                                        <button type="submit" class="badge {{ $tenant->status === 'active' ? 'bg-success text-white' : 'bg-danger text-white' }} border-0">
+                                            {{$tenant->status }}
+                                        </button>
+                                    </form>
+                                </td>
                                 <td>
                                     @foreach($tenant->domains as $domain)
                                     <span class="badge bg-secondary me-1">{{ $domain->domain }}</span>

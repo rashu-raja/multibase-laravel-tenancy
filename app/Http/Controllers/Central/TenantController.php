@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Central;
 
 use App\Http\Controllers\Controller;
 use App\Models\Tenant;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 
@@ -33,9 +34,9 @@ class TenantController extends Controller
      */
     public function store(Request $request)
     {
-                // Validate inputs
+        // Validate inputs
         $validated = $request->validate([
-            'name'=>'required|max:255',
+            'name' => 'required|max:255',
             'domain_name' => 'required|string|max:255|unique:domains,domain',
             'db_name' => 'required|max:255|unique:tenants,db_name',
         ]);
@@ -69,12 +70,11 @@ class TenantController extends Controller
         return redirect()->intended('/tenants')->with('success', 'Tenant created successfully!');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+
+    public function showDashboard()
     {
-        //
+        $users = User::all();
+        return view('tenant/dashboard', compact('users'));
     }
 
     /**
